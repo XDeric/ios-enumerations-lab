@@ -8,7 +8,24 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 a) Define an enumeration called `iOSDeviceType` with member values `iPhone`, `iPad`, `iWatch`. Create a variable called `myDevice` and assign it one member value.
 
 b) Adjust your code above so that `iPhone` and `iPad` have associated values of type String which represents the model number, eg: `iPhone("6 Plus")`. Use a switch case and let syntax to print out the model number of each device.
+```swift
+enum iOSDeviceType{
+case iPhone
+case iPad
+case iWatch
+}
+var phone = iOSDeviceType.iPhone
 
+switch phone {
+case .iPhone:
+print("X plus")
+case .iPad:
+print("Ipad pro 2019")
+case .iWatch:
+print("a fancy watch")
+}
+var myDevice = iOSDeviceType.iPhone
+```
 
 ## Question 2
 
@@ -17,12 +34,92 @@ a) Write an enum called `Shape` and give it cases for `triangle`, `rectangle`, `
 b) Write a method inside `Shape` that returns how many sides the shape has. Create a variable called `myFavoritePolygon` and assign it to one of the shapes above, then print out how many sides it has.
 
 c) Re-write `Shape` so that each case has an associated value of type Int that will represent the length of the sides (assume the shapes are regular polygons so all the sides are the same length) and write a method inside that returns the perimeter of the shape.
+```Swift
+//a.
+enum shape {
+case triangle
+case rectangle
+case square
+case pentagon
+case hexagon
+}
 
+//b.
+enum shape {
+case triangle
+case rectangle
+case square
+case pentagon
+case hexagon
+
+func enumChoice ()-> String{
+switch myFavoritePolygon{
+case .triangle:
+return "Triangle has 3 sides"
+default:
+return "not my favorite shape"
+}
+}
+}
+
+let myFavoritePolygon = shape.triangle
+
+print(myFavoritePolygon.enumChoice())
+
+//c.
+enum shape {
+case triangle
+case rectangle
+case square
+case pentagon
+case hexagon
+
+func enumChoice ()-> String{
+switch myFavoritePolygon{
+case .triangle:
+return "Triangle has 3 sides"
+case .rectangle:
+return " Rectangle has 4 Sides"
+case .square:
+return "Square has 4 Sides"
+case .pentagon:
+return "Pentagon 5 Sides"
+case .hexagon:
+return "Hexagon has 6 Sides"
+}
+}
+}
+
+let myFavoritePolygon = shape.hexagon
+
+print(myFavoritePolygon.enumChoice())
+
+```
 
 ## Question 3
 
 Write an enum called `OperatingSystem` and give it cases for `windows`, `mac`, and `linux`. Create an array of 10 `OperatingSystem` objects where each one is set to a random operating system. Then, iterate through the array and print out a message depending on the operating system.
 
+```swift
+enum OperatingSystem {
+case windows
+case mac
+case linux
+}
+var arrOfSystem = [OperatingSystem.mac,OperatingSystem.windows,OperatingSystem.linux,OperatingSystem.mac,OperatingSystem.mac,OperatingSystem.windows,OperatingSystem.linux,OperatingSystem.mac,OperatingSystem.windows,OperatingSystem.mac]
+
+
+for i in arrOfSystem{
+switch i{
+case .windows:
+print("Most used")
+case .mac:
+print("Apple fans")
+case .linux:
+print("User control")
+}
+}
+```
 
 ## Question 4
 
@@ -46,6 +143,31 @@ var location = (x: 0, y: 0)
 var steps: [Direction] = [.up, .up, .left, .down, .left]
 
 // your code here
+```
+```swift
+enum Direction{
+case up
+case down
+case right
+case left
+}
+
+var location = (x: 0, y: 0)
+var steps: [Direction] = [.up, .up, .left, .down, .left]
+
+for i in steps{
+switch i{
+case .up:
+location.1 += 1
+case .down:
+location.1 -= 1
+case .left:
+location.0 -= 1
+case .right:
+location.0 += 1
+}
+}
+print("You're at \(location)")
 ```
 
 
