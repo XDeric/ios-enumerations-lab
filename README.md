@@ -180,7 +180,58 @@ b) Define an enumeration named `MatchResult` with three members: `.win`, `.draw`
 c) Write a function called `match` that takes two `HandShapes` and returns a `MatchResult`. It should return the outcome for the first player (the one with the first hand shape).
 
 Hint: Rock beats scissors, paper beats rock, scissor beats paper
+```swift
+enum HandShape{
+case rock
+case paper
+case scissor
+}
+enum MatchResult{
+case win
+case lose
+case draw
+}
 
+func matches(a: HandShape, b: HandShape) -> MatchResult {
+
+switch a{
+case .rock:
+if  b == .scissor{
+return .win
+}
+else if b == .paper{
+return .lose
+}
+else{
+return .draw
+}
+
+case .paper:
+if b == .rock{
+return .win
+}
+else if b == .scissor{
+return .lose
+}
+else  {
+return .draw
+}
+
+case .scissor:
+if b == .rock{
+return .lose
+}
+else if b == .paper{
+return .win
+
+}
+else {
+return .draw
+}
+}
+}
+print(matches(a: .rock, b: .paper))
+```
 
 ## Question 6
 
@@ -203,9 +254,39 @@ var moneyArray:[(Int,CoinType)] = [(10,.penny),
 
 // your code here
 ```
+```swift
+var sum = 0
+for quantity in moneyArray{
+sum += quantity.0 * quantity.1.rawValue
+}
+print(sum)
+```
 
 b) Write a method in the `CoinType` enum that returns an Int representing how many coins of that type you need to have a dollar. Then, create an instance of `CoinType` set to `.nickle` and use your method to print out how many nickels you need to have to make a dollar.
+```swift
+enum CoinType: Int {
+case penny = 1
+case nickle = 5
+case dime = 10
+case quarter = 25
 
+func makeADollar ()-> Int{
+switch self{
+case .penny:
+return 100 / CoinType.penny.rawValue
+case .nickle:
+return 100 / CoinType.nickle.rawValue
+case .dime:
+return 100 / CoinType.dime.rawValue
+case .quarter:
+return 100 / CoinType.quarter.rawValue
+}
+}
+}
+
+var randomCoins = CoinType.nickle
+print(randomCoins.makeADollar())
+```
 
 ## Question 7
 
@@ -216,7 +297,75 @@ b) Given the array `poorlyFormattedDays`, write code that will produce an array 
 `let poorlyFormattedDays = ["MONDAY", "wednesday", "Sunday", "monday", "Tuesday", "WEDNESDAY", "thursday", "SATURDAY", "tuesday", "FRIDAy", "Wednesday", "Monday", "Friday", "sunday"]`
 
 c) Write a method in `DayOfWeek` called `isWeekend` that determines whether a day is part of the weekend or not and write code to calculate how many week days appear in `poorlyFormattedDays`.
+```swift
+//a.
+enum DayofWeek: String{
+case sunday = "sunday"
+case monday = "monday"
+case tuesday = "tuesday"
+case wednesday = "wednesday"
+case thursday = "thursday"
+case friday = "friday"
+case saturday = "saturday"
+}
 
+//b.
+//getting weird error not sure why
+enum DayofWeek: String, CaseIterable{
+case sunday = "sunday"
+case monday = "monday"
+case tuesday = "tuesday"
+case wednesday = "wednesday"
+case thursday = "thursday"
+case friday = "friday"
+case saturday = "saturday"
+}
+
+let poorlyFormattedDays = ["MONDAY", "wednesday", "Sunday", "monday", "Tuesday", "WEDNESDAY", "thursday", "SATURDAY", "tuesday", "FRIDAy", "Wednesday", "Monday", "Friday", "sunday"]
+
+
+var days = DayofWeek.allCases.map{$0}
+
+
+for i in poorlyFormattedDays{
+days.append(DayofWeek(rawValue: i.lowercased())!)
+}
+print(days)
+
+//c.
+
+//not done some errors
+enum DayofWeek: String{
+case sunday = "sunday"
+case monday = "monday"
+case tuesday = "tuesday"
+case wednesday = "wednesday"
+case thursday = "thursday"
+case friday = "friday"
+case saturday = "saturday"
+
+func isWeekend()-> Bool{
+switch self {
+case .sunday:
+return true
+case .saturday:
+return true
+default:
+return false
+}
+
+}
+}
+
+let poorlyFormattedDays = ["MONDAY", "wednesday", "Sunday", "monday", "Tuesday", "WEDNESDAY", "thursday", "SATURDAY", "tuesday", "FRIDAy", "Wednesday", "Monday", "Friday", "sunday"]
+
+var counter = 0
+for i in poorlyFormattedDays{
+if DayofWeek.saturday.isWeekend() == i.lowercased(){
+counter += 1
+}
+}
+```
 
 ## Question 8
 
@@ -224,7 +373,61 @@ a) Create an enum called `MetroLine` with cases for the colors of the metro trai
 
 b) Modify your enum so that each case has an associated value of either Character or Int that will represent the train on that line. Create a new instance of `MetroLine` and give it an appropriate train letter or number.
 
+
 c) Write code that prints the train letter or number of your instance of `MetroLine`.
+
+```swift
+//a.
+enum MetroLine{
+case purple
+case red
+case orange
+case blue
+case green
+
+}
+var subway = MetroLine.orange
+
+//b.
+enum MetroLine{
+case purple(Int)
+case red (Int)
+case orange (Character)
+case blue (Character)
+case green (Int)
+
+}
+var subway = MetroLine.orange("F")
+print(subway)
+
+//c.
+enum MetroLine{
+case purple(Int)
+case red (Int)
+case orange (Character)
+case blue (Character)
+case green (Int)
+
+}
+var subway = MetroLine.orange("F")
+
+switch subway {
+case .purple(7):
+print("7")
+case .red(1):
+print("1")
+case .orange("F"):
+print("F")
+case .blue("A"):
+print("A")
+case .green(4):
+print("4")
+default:
+print("not train")
+}
+print(subway)
+
+```
 
 
 ## Question 9
